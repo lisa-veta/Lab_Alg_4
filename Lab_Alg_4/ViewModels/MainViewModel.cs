@@ -12,8 +12,8 @@ namespace Lab_Alg_4.ViewModels
     {
         public ICommand StartWorkFractal => new CommandDelegate(param =>
         {
-            SortingAlgWindow dragonFractalWindow = new SortingAlgWindow();
-            SortingAlgViewModel dragonFractalViewModel = new SortingAlgViewModel();
+            SetDataWindow dragonFractalWindow = new SetDataWindow();
+            SetDataViewModel dragonFractalViewModel = new SetDataViewModel();
             dragonFractalWindow.DataContext = dragonFractalViewModel;
             dragonFractalWindow.ShowDialog();
         });

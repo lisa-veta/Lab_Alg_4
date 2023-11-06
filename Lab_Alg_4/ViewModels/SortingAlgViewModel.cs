@@ -13,7 +13,6 @@ namespace Lab_Alg_4.ViewModels
 {
     public  class SortingAlgViewModel : BaseViewModel
     {
-
         private List<string> _sortingAlgorithms;
         public List<string> ListOfAlgorithms
         {
@@ -58,7 +57,7 @@ namespace Lab_Alg_4.ViewModels
             }
         }
 
-        private int _slider;
+        private int _slider = 500;
         public int Slider
         {
             get { return _slider; }
@@ -80,7 +79,7 @@ namespace Lab_Alg_4.ViewModels
             }
         }
 
-        private List<int> list = new List<int>(){20, 10, 8, 15, 5, 1, -5};
+        public List<int> MyList = new List<int>();
 
         private double _setPosition;
         public double Position
@@ -95,7 +94,10 @@ namespace Lab_Alg_4.ViewModels
 
         public ICommand Start => new CommandDelegate(param =>
         {
-            FieldDefinition();
+            FieldDefinition(MyList);
+            BubbleSort bubbleSort = new BubbleSort();
+            bubbleSort.DoBubbleSort(MyList.ToArray());
+            MoveRings(bubbleSort.ItemsSort);
             StartDraw();
         });
 
@@ -105,19 +107,19 @@ namespace Lab_Alg_4.ViewModels
             {
                 case "Bubble Sort":
                     BubbleSort bubbleSort = new BubbleSort();
-                    bubbleSort.DoBubbleSort(new int[] {20, 10, 8, 15, 5, 1, -5});
+                    bubbleSort.DoBubbleSort(new int[] { -20, -10, 15, 4, 8, 7, 7, 20, 10, 8, 15, 5, 1, -5 });
+                    MoveRings(bubbleSort.ItemsSort);
                     break;
                 default:
                     break;
             }
         }
 
-        private void FieldDefinition()
+        public void FieldDefinition(List<int> list)
         {
-
             MainCanvas.Children.Clear();
-            double RingWidth = MainCanvas.Width/40 - 2;
-            double ringHeight = MainCanvas.Height / 30;
+            double RingWidth = 600/40 - 2;
+            double ringHeight = 425 / 40;
             double seter = 0;
             foreach(int i in list)
             {
@@ -126,11 +128,11 @@ namespace Lab_Alg_4.ViewModels
                 rect.Height = ringHeight * Math.Abs(i);
                 if (i < 0)
                 {
-                    Canvas.SetBottom(rect, 200 - i);
+                    Canvas.SetBottom(rect, -200 + i* ringHeight);
                 }
                 else
                 {
-                    Canvas.SetBottom(rect, 200);
+                    Canvas.SetBottom(rect, -200);
                 }
                 Canvas.SetLeft(rect, seter);
                 seter += RingWidth + 2;
@@ -143,5 +145,15 @@ namespace Lab_Alg_4.ViewModels
                 MainCanvas.Children.Add(rect);
             }
         }
+
+        private async void MoveRings(List<List<int>> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                FieldDefinition(list[i]);
+                await Task.Delay(100);
+            }
+        }
+
     }
 }
