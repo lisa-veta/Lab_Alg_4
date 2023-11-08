@@ -8,7 +8,7 @@ namespace Lab_Alg_4.Models
 {
     public class BubbleSort
     {
-        public List<List<int>> ItemsSort = new List<List<int>>(); 
+        public List<ItemSort> ItemsSort = new List<ItemSort>(); 
         public void DoBubbleSort(int[] vector)
         {
             int temp;
@@ -23,7 +23,7 @@ namespace Lab_Alg_4.Models
                         vector[j + 1] = temp;
                         int[] mass1 = (int[])vector.Clone();
                         List<int> list1 = mass1.ToList();
-                        ItemsSort.Add(list1);
+                        ItemsSort.Add(new ItemSort(list1));
                     }
                 }
             }

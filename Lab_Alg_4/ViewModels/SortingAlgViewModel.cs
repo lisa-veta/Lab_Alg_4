@@ -13,7 +13,7 @@ namespace Lab_Alg_4.ViewModels
 {
     public  class SortingAlgViewModel : BaseViewModel
     {
-        private List<string> _sortingAlgorithms;
+        private List<string> _sortingAlgorithms = new List<string> { "Bubble Sort", "Heap Sort" };
         public List<string> ListOfAlgorithms
         {
             get { return _sortingAlgorithms; }
@@ -31,6 +31,7 @@ namespace Lab_Alg_4.ViewModels
             set
             {
                 _currentAlg = value;
+                FieldDefinition(MyList);
                 OnPropertyChanged();
             }
         }
@@ -92,12 +93,23 @@ namespace Lab_Alg_4.ViewModels
             }
         }
 
-        public ICommand Start => new CommandDelegate(param =>
+        private bool _isEnabledComb = true;
+
+        public bool IsEnabledComb
         {
+            get { return _isEnabledComb; }
+            set
+            {
+                OnPropertyChanged();
+            }
+        }
+    
+
+
+    public ICommand Start => new CommandDelegate(param =>
+        {
+            
             FieldDefinition(MyList);
-            BubbleSort bubbleSort = new BubbleSort();
-            bubbleSort.DoBubbleSort(MyList.ToArray());
-            MoveRings(bubbleSort.ItemsSort);
             StartDraw();
         });
 
@@ -107,8 +119,13 @@ namespace Lab_Alg_4.ViewModels
             {
                 case "Bubble Sort":
                     BubbleSort bubbleSort = new BubbleSort();
-                    bubbleSort.DoBubbleSort(new int[] { -20, -10, 15, 4, 8, 7, 7, 20, 10, 8, 15, 5, 1, -5 });
-                    MoveRings(bubbleSort.ItemsSort);
+                    bubbleSort.DoBubbleSort(MyList.ToArray());
+                    MoveRectangle(bubbleSort.ItemsSort);
+                    break;
+                case "Heap Sort":
+                    HeapSort heapSort = new HeapSort();
+                    heapSort.DoHeapSort(MyList.ToArray());
+                    MoveRectangle(heapSort.ItemsSort);
                     break;
                 default:
                     break;
@@ -146,12 +163,14 @@ namespace Lab_Alg_4.ViewModels
             }
         }
 
-        private async void MoveRings(List<List<int>> list)
+        private async void MoveRectangle(List<ItemSort> list)
         {
+            
             for (int i = 0; i < list.Count; i++)
             {
-                FieldDefinition(list[i]);
-                await Task.Delay(100);
+                IsEnabledComb = false;
+                FieldDefinition(list[i].elements);
+                await Task.Delay(1010 - Slider);
             }
         }
 

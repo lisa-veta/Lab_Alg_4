@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\BubbleSort.cs" />
+    <Compile Include="Models\HeapSort.cs" />
     <Compile Include="Models\ItemSort.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CommandDelegate.cs" />
