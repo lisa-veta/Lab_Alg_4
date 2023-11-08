@@ -28,22 +28,28 @@ namespace Lab_Alg_4.Models
                 if (items[i].Content < pivot.Content)
                 {
                     position++;
+
+                    listItems.Add(new ItemSort(items[i].Id, items[position].Id, Copyer.CopyListItem(items)));
                     Swap(items, i, position);
+                    listItems.Add(new ItemSort(items[i].Id, items[position].Id, Copyer.CopyListItem(items)));
                 }
             }
             position++;
+            listItems.Add(new ItemSort(items[endInd].Id, items[position].Id, Copyer.CopyListItem(items)));
             items[endInd] = items[position];
             items[position] = pivot;
+            listItems.Add(new ItemSort(items[endInd].Id, items[position].Id, Copyer.CopyListItem(items)));
+
             return position;
         }
 
         public void Swap(List<Item> items, int ind1, int ind2)
         {
-            listItems.Add(new ItemSort(items[ind1].Id, items[ind2].Id, Copyer.CopyListItem(items)));
+            //listItems.Add(new ItemSort(items[ind1].Id, items[ind2].Id, Copyer.CopyListItem(items)));
             Item box = items[ind1];
             items[ind1] = items[ind2];
             items[ind2] = box;
-            listItems.Add(new ItemSort(items[ind1].Id, items[ind2].Id, Copyer.CopyListItem(items)));
+            //listItems.Add(new ItemSort(items[ind1].Id, items[ind2].Id, Copyer.CopyListItem(items)));
         }
     }
 }
