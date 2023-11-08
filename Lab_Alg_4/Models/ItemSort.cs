@@ -10,12 +10,12 @@ namespace Lab_Alg_4.Models
     {
         public int positionFrom;
         public int positionTo;
-        public List<int> elements;
-        public ItemSort(List<int> elements)
+        public List<Item> elements;
+        public ItemSort(List<Item> elements)
         {
             this.elements = elements;
         }
-        public ItemSort(int positionFrom, int positionTo, List<int> elements)
+        public ItemSort(int positionFrom, int positionTo, List<Item> elements)
         {
             this.positionFrom = positionFrom;
             this.positionTo = positionTo;

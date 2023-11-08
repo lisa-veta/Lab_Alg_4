@@ -31,7 +31,8 @@ namespace Lab_Alg_4.ViewModels
             set
             {
                 _currentAlg = value;
-                FieldDefinition(MyList);
+                SetDictElement(OriginalListElements);
+                FieldDefinition(IndElements);
                 OnPropertyChanged();
             }
         }
@@ -80,7 +81,22 @@ namespace Lab_Alg_4.ViewModels
             }
         }
 
-        public List<int> MyList = new List<int>();
+        public List<int> OriginalListElements = new List<int>();
+
+        private List<Item> IndElements = new List<Item>();
+
+        public List<Item> SetDictElement(List<int> listElement)
+        {
+            List<Item> result = new List<Item>();
+            int ind = 0;
+            foreach (int item in listElement)
+            {
+                result.Add(new Item(ind, item));
+                ind++;
+            }
+            IndElements = result;
+            return IndElements;
+        }
 
         private double _setPosition;
         public double Position
@@ -106,10 +122,10 @@ namespace Lab_Alg_4.ViewModels
     
 
 
-    public ICommand Start => new CommandDelegate(param =>
+        public ICommand Start => new CommandDelegate(param =>
         {
-            
-            FieldDefinition(MyList);
+            SetDictElement(OriginalListElements);
+            FieldDefinition(IndElements);
             StartDraw();
         });
 
@@ -119,12 +135,12 @@ namespace Lab_Alg_4.ViewModels
             {
                 case "Bubble Sort":
                     BubbleSort bubbleSort = new BubbleSort();
-                    bubbleSort.DoBubbleSort(MyList.ToArray());
+                    bubbleSort.DoBubbleSort(IndElements);
                     MoveRectangle(bubbleSort.ItemsSort);
                     break;
                 case "Heap Sort":
                     HeapSort heapSort = new HeapSort();
-                    heapSort.DoHeapSort(MyList.ToArray());
+                    heapSort.DoHeapSort(IndElements);
                     MoveRectangle(heapSort.ItemsSort);
                     break;
                 default:
@@ -132,20 +148,20 @@ namespace Lab_Alg_4.ViewModels
             }
         }
 
-        public void FieldDefinition(List<int> list)
+        public void FieldDefinition(List<Item> list, ItemSort settings = null)
         {
             MainCanvas.Children.Clear();
             double RingWidth = 600/40 - 2;
             double ringHeight = 425 / 40;
             double seter = 0;
-            foreach(int i in list)
+            foreach(Item item in list)
             {
                 Rectangle rect = new Rectangle();
                 rect.Width = RingWidth;
-                rect.Height = ringHeight * Math.Abs(i);
-                if (i < 0)
+                rect.Height = ringHeight * Math.Abs(item.Content);
+                if (item.Content < 0)
                 {
-                    Canvas.SetBottom(rect, -200 + i* ringHeight);
+                    Canvas.SetBottom(rect, -200 + item.Content * ringHeight);
                 }
                 else
                 {
@@ -153,8 +169,16 @@ namespace Lab_Alg_4.ViewModels
                 }
                 Canvas.SetLeft(rect, seter);
                 seter += RingWidth + 2;
-                rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
-                rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
+                if(settings != null && (item.Id == settings.positionFrom || item.Id == settings.positionTo))
+                {
+                    rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#5555FF");
+                    rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#5555FF");
+                }
+                else 
+                {
+                    rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
+                    rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
+                }
                 rect.StrokeThickness = 1;
                 rect.RadiusX = 10;
                 rect.RadiusY = 10;
@@ -169,7 +193,7 @@ namespace Lab_Alg_4.ViewModels
             for (int i = 0; i < list.Count; i++)
             {
                 IsEnabledComb = false;
-                FieldDefinition(list[i].elements);
+                FieldDefinition(list[i].elements, list[i]);
                 await Task.Delay(1010 - Slider);
             }
         }

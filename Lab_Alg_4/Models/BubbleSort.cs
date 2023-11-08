@@ -9,21 +9,20 @@ namespace Lab_Alg_4.Models
     public class BubbleSort
     {
         public List<ItemSort> ItemsSort = new List<ItemSort>(); 
-        public void DoBubbleSort(int[] vector)
+        public void DoBubbleSort(List<Item> items)
         {
-            int temp;
-            for (int i = 0; i < vector.Length - 1; i++)
+            Item temp;
+            for (int i = 0; i < items.Count - 1; i++)
             {
-                for (int j = 0; j < vector.Length - i - 1; j++)
+                for (int j = 0; j < items.Count - i - 1; j++)
                 {
-                    if (vector[j] > vector[j + 1])
+                    if (items[j].Content > items[j + 1].Content)
                     {
-                        temp = vector[j];
-                        vector[j] = vector[j + 1];
-                        vector[j + 1] = temp;
-                        int[] mass1 = (int[])vector.Clone();
-                        List<int> list1 = mass1.ToList();
-                        ItemsSort.Add(new ItemSort(list1));
+                        temp = items[j];
+                        items[j] = items[j + 1];
+                        items[j + 1] = temp;
+
+                        ItemsSort.Add(new ItemSort(items[j].Id, items[j + 1].Id, Copyer.CopyListItem(items)));
                     }
                 }
             }

@@ -64,9 +64,9 @@ namespace Lab_Alg_4.ViewModels
             }
             SortingAlgWindow dragonFractalWindow = new SortingAlgWindow();
             SortingAlgViewModel dragonFractalViewModel = new SortingAlgViewModel();
-            dragonFractalViewModel.MyList = ints;
+            dragonFractalViewModel.OriginalListElements = ints;
             dragonFractalWindow.DataContext = dragonFractalViewModel;
-            dragonFractalViewModel.FieldDefinition(ints);
+            dragonFractalViewModel.FieldDefinition(dragonFractalViewModel.SetDictElement(ints));
             dragonFractalWindow.ShowDialog();
         });
 

@@ -9,40 +9,40 @@ namespace Lab_Alg_4.Models
     public class HeapSort
     {
         public List<ItemSort> ItemsSort = new List<ItemSort>();
-        public void DoHeapSort(int[] vector)
+        public void DoHeapSort(List<Item> items)
         {
-            int n = vector.Length;
+            int n = items.Count;
             for (int i = n / 2; i >= 0; i--)
-                MaxHeapify(vector, n, i);
+                MaxHeapify(items, n, i);
             for (int i = n - 1; i >= 0; i--)
             {
-                Swap(vector, 0, i);
-                MaxHeapify(vector, i, 0);
+                Swap(items, 0, i);
+                MaxHeapify(items, i, 0);
             }
         }
 
-        private void MaxHeapify(int[] vector, int n, int ind)
+        private void MaxHeapify(List<Item> items, int n, int ind)
         {
             int largest = ind;
             int indLeft = ind * 2 + 1;
             int indRight = ind * 2 + 2;
-            if (indLeft < n && vector[indLeft] > vector[largest])
+            if (indLeft < n && items[indLeft].Content > items[largest].Content)
                 largest = indLeft;
-            if (indRight < n && vector[indRight] > vector[largest])
+            if (indRight < n && items[indRight].Content > items[largest].Content)
                 largest = indRight;
             if (largest != ind)
             {
-                Swap(vector, ind, largest);
-                MaxHeapify(vector, n, largest);
+                Swap(items, ind, largest);
+                MaxHeapify(items, n, largest);
             }
         }
 
-        private void Swap(int[] vector, int a, int b)
+        private void Swap(List<Item> items, int a, int b)
         {
-            int box = vector[a];
-            vector[a] = vector[b];
-            vector[b] = box;
-            ItemsSort.Add(new ItemSort(vector.ToList<int>()));
+            Item box = items[a];
+            items[a] = items[b];
+            items[b] = box;
+            ItemsSort.Add(new ItemSort(items[a].Id, items[b].Id, Copyer.CopyListItem(items)));
         }
     }
 }
