@@ -184,6 +184,12 @@ namespace Lab_Alg_4.ViewModels
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
                     rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
                 }
+                if ( settings!=null && (item.Id == settings.pivotIndex))
+                {
+                    rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#008000");
+                    rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#008000");
+                }
+
                 rect.StrokeThickness = 1;
                 rect.RadiusX = 10;
                 rect.RadiusY = 10;

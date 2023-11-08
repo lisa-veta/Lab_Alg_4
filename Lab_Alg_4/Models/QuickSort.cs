@@ -15,6 +15,7 @@ namespace Lab_Alg_4.Models
                 return;
             }
             int pivot = Partition(items, startInd, endInd);
+            listItems.Add(new ItemSort(pivot, Copyer.CopyListItem(items)));
             DoQuickSort(items, startInd, pivot - 1);
             DoQuickSort(items, pivot + 1, endInd);
         }
@@ -45,11 +46,9 @@ namespace Lab_Alg_4.Models
 
         public void Swap(List<Item> items, int ind1, int ind2)
         {
-            //listItems.Add(new ItemSort(items[ind1].Id, items[ind2].Id, Copyer.CopyListItem(items)));
             Item box = items[ind1];
             items[ind1] = items[ind2];
             items[ind2] = box;
-            //listItems.Add(new ItemSort(items[ind1].Id, items[ind2].Id, Copyer.CopyListItem(items)));
         }
     }
 }
