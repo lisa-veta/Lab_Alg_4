@@ -7,47 +7,43 @@ namespace Lab_Alg_4.Models
 {
     public class QuickSort
     {
-        public List<List<int>> listItems = new List<List<int>>();
-        public void DoQuickSort(int[] vector, int startInd, int endInd)
+        public List<ItemSort> listItems = new List<ItemSort>();
+        public void DoQuickSort(List<Item> items, int startInd, int endInd)
         {
-            // int startInd = 0;
-            // int endInd = vector.Length - 1;
-            
             if (startInd >= endInd)
             {
                 return;
             }
-            int pivot = Partition(vector, startInd, endInd);
-            DoQuickSort(vector, startInd, pivot - 1);
-            DoQuickSort(vector, pivot + 1, endInd);
+            int pivot = Partition(items, startInd, endInd);
+            DoQuickSort(items, startInd, pivot - 1);
+            DoQuickSort(items, pivot + 1, endInd);
         }
 
-        public int Partition(int[] vector, int startInd, int endInd)
+        public int Partition(List<Item> items, int startInd, int endInd)
         {
-            int pivot = vector[endInd];
+            Item pivot = items[endInd];
             int position = startInd - 1;
             for (int i = startInd; i <= endInd; i++)
             {
-                if (vector[i] < pivot)
+                if (items[i].Content < pivot.Content)
                 {
                     position++;
-                    Swap(vector, i, position);
+                    Swap(items, i, position);
                 }
             }
             position++;
-            vector[endInd] = vector[position];
-            vector[position] = pivot;
+            items[endInd] = items[position];
+            items[position] = pivot;
             return position;
         }
 
-        public void Swap(int[] vector, int ind1, int ind2)
+        public void Swap(List<Item> items, int ind1, int ind2)
         {
-            int box = vector[ind1];
-            vector[ind1] = vector[ind2];
-            vector[ind2] = box;
-            int[] updatedElements = (int[])vector.Clone();
-            List<int> updateNewList = updatedElements.ToList();
-            listItems.Add(updateNewList);
+            listItems.Add(new ItemSort(items[ind1].Id, items[ind2].Id, Copyer.CopyListItem(items)));
+            Item box = items[ind1];
+            items[ind1] = items[ind2];
+            items[ind2] = box;
+            listItems.Add(new ItemSort(items[ind1].Id, items[ind2].Id, Copyer.CopyListItem(items)));
         }
     }
 }
