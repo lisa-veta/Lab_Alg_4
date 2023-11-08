@@ -33,9 +33,10 @@
                     <ColumnDefinition Width="20*" />
                     <ColumnDefinition Width="0.5*" />
                     <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="5*" />
                 </Grid.ColumnDefinitions>
 
-                <ComboBox Name="Algorithms" ItemsSource="{Binding ListOfAlgorithms}" SelectedItem="{Binding CurrentAlg}"></ComboBox>
+                <ComboBox Name="Algorithms" IsEnabled="{Binding IsEnabledComb}" ItemsSource="{Binding ListOfAlgorithms}" SelectedItem="{Binding CurrentAlg}"></ComboBox>
                 <TextBlock Name="Items" Text="{Binding SequenceNum}" Grid.Column="2"></TextBlock>
                 <Button x:Name="Start" Command="{Binding  Start}" Grid.Column="4" Background="Ivory">
                     <Button.Resources>
@@ -45,6 +46,16 @@
                     </Button.Resources>
                     <Button.Content>
                         <TextBlock FontSize="20" Text="Start" TextWrapping="Wrap" TextAlignment="Center"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="Finish" Command="{Binding  Finish}" Grid.Column="5" Background="Ivory">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.Content>
+                        <TextBlock FontSize="20" Text="Finish" TextWrapping="Wrap" TextAlignment="Center"/>
                     </Button.Content>
                 </Button>
             </Grid>
@@ -63,7 +74,7 @@
                 </TextBlock>
             </Grid>
             <Grid Grid.Row ="4">
-                <Slider x:Name="Slider" Grid.Row="10" Grid.Column="4" Minimum="100" Maximum="1000" Value="{Binding Slider}" SmallChange="10" LargeChange="10"></Slider>
+                <Slider x:Name="Slider" Grid.Row="10" Grid.Column="4" Minimum="10" Maximum="1000" Value="{Binding Slider}" SmallChange="10" LargeChange="10"></Slider>
             </Grid>
         </Grid>
     </Grid>

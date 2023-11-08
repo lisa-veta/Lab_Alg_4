@@ -13,7 +13,7 @@ namespace Lab_Alg_4.ViewModels
 {
     public  class SortingAlgViewModel : BaseViewModel
     {
-        private List<string> _sortingAlgorithms;
+        private List<string> _sortingAlgorithms = new List<string> { "Bubble Sort", "Heap Sort" };
         public List<string> ListOfAlgorithms
         {
             get { return _sortingAlgorithms; }
@@ -31,6 +31,8 @@ namespace Lab_Alg_4.ViewModels
             set
             {
                 _currentAlg = value;
+                SetDictElement(OriginalListElements);
+                FieldDefinition(IndElements);
                 OnPropertyChanged();
             }
         }
@@ -79,7 +81,22 @@ namespace Lab_Alg_4.ViewModels
             }
         }
 
-        public List<int> MyList = new List<int>();
+        public List<int> OriginalListElements = new List<int>();
+
+        private List<Item> IndElements = new List<Item>();
+
+        public List<Item> SetDictElement(List<int> listElement)
+        {
+            List<Item> result = new List<Item>();
+            int ind = 0;
+            foreach (int item in listElement)
+            {
+                result.Add(new Item(ind, item));
+                ind++;
+            }
+            IndElements = result;
+            return IndElements;
+        }
 
         private double _setPosition;
         public double Position
@@ -92,12 +109,23 @@ namespace Lab_Alg_4.ViewModels
             }
         }
 
+        private bool _isEnabledComb = true;
+
+        public bool IsEnabledComb
+        {
+            get { return _isEnabledComb; }
+            set
+            {
+                OnPropertyChanged();
+            }
+        }
+    
+
+
         public ICommand Start => new CommandDelegate(param =>
         {
-            FieldDefinition(MyList);
-            BubbleSort bubbleSort = new BubbleSort();
-            bubbleSort.DoBubbleSort(MyList.ToArray());
-            MoveRings(bubbleSort.ItemsSort);
+            SetDictElement(OriginalListElements);
+            FieldDefinition(IndElements);
             StartDraw();
         });
 
@@ -107,28 +135,33 @@ namespace Lab_Alg_4.ViewModels
             {
                 case "Bubble Sort":
                     BubbleSort bubbleSort = new BubbleSort();
-                    bubbleSort.DoBubbleSort(new int[] { -20, -10, 15, 4, 8, 7, 7, 20, 10, 8, 15, 5, 1, -5 });
-                    MoveRings(bubbleSort.ItemsSort);
+                    bubbleSort.DoBubbleSort(IndElements);
+                    MoveRectangle(bubbleSort.ItemsSort);
+                    break;
+                case "Heap Sort":
+                    HeapSort heapSort = new HeapSort();
+                    heapSort.DoHeapSort(IndElements);
+                    MoveRectangle(heapSort.ItemsSort);
                     break;
                 default:
                     break;
             }
         }
 
-        public void FieldDefinition(List<int> list)
+        public void FieldDefinition(List<Item> list, ItemSort settings = null)
         {
             MainCanvas.Children.Clear();
             double RingWidth = 600/40 - 2;
             double ringHeight = 425 / 40;
             double seter = 0;
-            foreach(int i in list)
+            foreach(Item item in list)
             {
                 Rectangle rect = new Rectangle();
                 rect.Width = RingWidth;
-                rect.Height = ringHeight * Math.Abs(i);
-                if (i < 0)
+                rect.Height = ringHeight * Math.Abs(item.Content);
+                if (item.Content < 0)
                 {
-                    Canvas.SetBottom(rect, -200 + i* ringHeight);
+                    Canvas.SetBottom(rect, -200 + item.Content * ringHeight);
                 }
                 else
                 {
@@ -136,8 +169,16 @@ namespace Lab_Alg_4.ViewModels
                 }
                 Canvas.SetLeft(rect, seter);
                 seter += RingWidth + 2;
-                rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
-                rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
+                if(settings != null && (item.Id == settings.positionFrom || item.Id == settings.positionTo))
+                {
+                    rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#5555FF");
+                    rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#5555FF");
+                }
+                else 
+                {
+                    rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
+                    rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
+                }
                 rect.StrokeThickness = 1;
                 rect.RadiusX = 10;
                 rect.RadiusY = 10;
@@ -146,12 +187,14 @@ namespace Lab_Alg_4.ViewModels
             }
         }
 
-        private async void MoveRings(List<List<int>> list)
+        private async void MoveRectangle(List<ItemSort> list)
         {
+            
             for (int i = 0; i < list.Count; i++)
             {
-                FieldDefinition(list[i]);
-                await Task.Delay(100);
+                IsEnabledComb = false;
+                FieldDefinition(list[i].elements, list[i]);
+                await Task.Delay(1010 - Slider);
             }
         }
 

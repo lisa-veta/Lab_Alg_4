@@ -14,8 +14,8 @@ namespace Lab_Alg_4.ViewModels
     {
         public ObservableCollection<SetDataViewModel> Items { get; } = new ObservableCollection<SetDataViewModel>();
 
-        private string _newElement;
-        public string NewElement
+        private int _newElement;
+        public int NewElement
         {
             get { return _newElement; }
             set
@@ -43,9 +43,9 @@ namespace Lab_Alg_4.ViewModels
             List<int> ints = new List<int>();
             foreach(var item in Items)
             {
-                if (int.TryParse(item._newElement, out int num) && int.Parse(item._newElement) <= 20 && int.Parse(item._newElement) >= -20)
+                if (item._newElement <= 20 && item._newElement >= -20)
                 {
-                    ints.Add(num);
+                    ints.Add(item._newElement);
                 }
                 else
                 {
@@ -58,12 +58,27 @@ namespace Lab_Alg_4.ViewModels
                 MessageBox.Show("Данные не заполнены до конца");
                 return;
             }
+            if(Items.Count == 0)
+            {
+                ints = CreateRandomList();
+            }
             SortingAlgWindow dragonFractalWindow = new SortingAlgWindow();
             SortingAlgViewModel dragonFractalViewModel = new SortingAlgViewModel();
-            dragonFractalViewModel.MyList = ints;
+            dragonFractalViewModel.OriginalListElements = ints;
             dragonFractalWindow.DataContext = dragonFractalViewModel;
-            dragonFractalViewModel.FieldDefinition(ints);
+            dragonFractalViewModel.FieldDefinition(dragonFractalViewModel.SetDictElement(ints));
             dragonFractalWindow.ShowDialog();
         });
+
+        private List<int> CreateRandomList()
+        {
+            Random random = new Random();
+            List<int> result = new List<int>();
+            for(int i = 0; i < 40; i++) 
+            {
+                result.Add(random.Next(-20, 20));
+            }
+            return result;
+        }
     }
 }
