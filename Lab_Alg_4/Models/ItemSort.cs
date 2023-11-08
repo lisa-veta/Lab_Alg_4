@@ -11,6 +11,7 @@ namespace Lab_Alg_4.Models
         public int positionFrom;
         public int positionTo;
         public List<Item> elements;
+        public string comment;
         public ItemSort(List<Item> elements)
         {
             this.elements = elements;
