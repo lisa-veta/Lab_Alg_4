@@ -18,7 +18,8 @@ namespace Lab_Alg_4.ViewModels
 {
     public  class SortingAlgViewModel : BaseViewModel
     {
-        private List<string> _sortingAlgorithms = new List<string> { "Bubble Sort", "Heap Sort", "Shell Sort" };
+
+        private List<string> _sortingAlgorithms = new List<string> { "Bubble Sort", "Heap Sort", "Shell Sort","Quick Sort" };
         public ObservableCollection<string> Movements { get; set; } = new ObservableCollection<string>();
         public List<string> ListOfAlgorithms
         {
@@ -165,6 +166,11 @@ namespace Lab_Alg_4.ViewModels
                     SortElements = shellSort.ItemsSort;
                     MoveRectangle(SortElements);
                     break;
+                case "Quick Sort":
+                    QuickSort quickSort = new QuickSort();
+                    quickSort.DoQuickSort(IndElements,0,IndElements.Count-1);
+                    MoveRectangle(quickSort.listItems);
+                    break;
                 default:
                     break;
             }
@@ -211,6 +217,12 @@ namespace Lab_Alg_4.ViewModels
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
                     rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
                 }
+                if ( settings!=null && (item.Id == settings.pivotIndex))
+                {
+                    rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#008000");
+                    rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#008000");
+                }
+
                 rect.StrokeThickness = 1;
                 rect.RadiusX = 10;
                 rect.RadiusY = 10;
