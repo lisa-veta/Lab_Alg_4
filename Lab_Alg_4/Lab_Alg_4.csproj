@@ -60,6 +60,7 @@
     <Compile Include="Models\HeapSort.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\ItemSort.cs" />
+    <Compile Include="Models\QuickSort.cs" />
     <Compile Include="Models\ShellSort.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CommandDelegate.cs" />
