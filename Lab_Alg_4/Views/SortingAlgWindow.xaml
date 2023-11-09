@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab_Alg_4.Views"
         mc:Ignorable="d"
-        Title="SortingAlgWindow" Height="550" Width="800"
+        Title="SortingAlgWindow" Height="550" Width="950"
         ResizeMode="NoResize">
-    <Grid>
+    <Grid Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="100*"/>
@@ -38,7 +38,7 @@
 
                 <ComboBox Name="Algorithms" IsEnabled="{Binding IsEnabledComb}" ItemsSource="{Binding ListOfAlgorithms}" SelectedItem="{Binding CurrentAlg}"></ComboBox>
                 <TextBlock Name="Items" Text="{Binding SequenceNum}" Grid.Column="2"></TextBlock>
-                <Button x:Name="Start" Command="{Binding  Start}" Grid.Column="4" Background="Ivory">
+                <Button x:Name="Start" IsEnabled="{Binding IsEnabledComb}" Command="{Binding  Start}" Grid.Column="4" Background="Ivory">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="20"/>
@@ -63,15 +63,19 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="20*" />
                     <ColumnDefinition Width="0.5*" />
-                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="9.5*" />
                 </Grid.ColumnDefinitions>
                 <Canvas>
                     <ContentPresenter Content="{Binding MainCanvas}" />
-                    <Rectangle Fill="Black" Height="5" Width="600" RadiusX="2" RadiusY="2" Canvas.Left="1" Stroke="#FFFEF7" Canvas.Bottom="210" />
+                    <Rectangle Fill="White" Height="0.5" Width="600" RadiusX="2" RadiusY="2" Canvas.Left="1" Stroke="#FFFEF7" Canvas.Bottom="210" /> 
                 </Canvas>
-                <TextBlock Name="Movements" Text="{Binding Movements}" Grid.Column="2">
-                    
-                </TextBlock>
+                <!--<TextBlock Foreground="White" Name="Movements" Text="{Binding Movements}" Grid.Column="2"/>-->
+                <ScrollViewer Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="3" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Foreground="#FFFEF7" ItemsSource="{Binding Movements}">
+                        
+                    </ItemsControl>
+                </ScrollViewer>
+
             </Grid>
             <Grid Grid.Row ="4">
                 <Slider x:Name="Slider" Grid.Row="10" Grid.Column="4" Minimum="10" Maximum="1000" Value="{Binding Slider}" SmallChange="10" LargeChange="10"></Slider>

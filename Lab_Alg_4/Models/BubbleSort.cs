@@ -18,10 +18,10 @@ namespace Lab_Alg_4.Models
                 {
                     if (items[j].Content > items[j + 1].Content)
                     {
+                        ItemsSort.Add(new ItemSort(items[j].Id, items[j + 1].Id, Copyer.CopyListItem(items)));
                         temp = items[j];
                         items[j] = items[j + 1];
                         items[j + 1] = temp;
-
                         ItemsSort.Add(new ItemSort(items[j].Id, items[j + 1].Id, Copyer.CopyListItem(items)));
                     }
                 }
