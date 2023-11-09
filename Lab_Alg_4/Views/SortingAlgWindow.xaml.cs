@@ -23,5 +23,10 @@ namespace Lab_Alg_4.Views
         {
             InitializeComponent();
         }
+
+        private void ItemsControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+
+        }
     }
 }
