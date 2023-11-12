@@ -28,10 +28,11 @@ namespace Lab_Alg_4.Models
             this.comment = comment;
         }
 
-        public ItemSort(int pivot, List<Item> elements)
+        public ItemSort(int pivot, List<Item> elements, string comment = null)
         {
             this.pivotIndex = pivot;
             this.elements = elements;
+            this.comment = comment;
         }
     }
 }

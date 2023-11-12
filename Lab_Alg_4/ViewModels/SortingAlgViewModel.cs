@@ -169,7 +169,8 @@ namespace Lab_Alg_4.ViewModels
                 case "Quick Sort":
                     QuickSort quickSort = new QuickSort();
                     quickSort.DoQuickSort(IndElements,0,IndElements.Count-1);
-                    MoveRectangle(quickSort.listItems);
+                    SortElements = quickSort.listItems;
+                    MoveRectangle(SortElements);
                     break;
                 default:
                     break;
@@ -183,20 +184,22 @@ namespace Lab_Alg_4.ViewModels
             double ringHeight = 425 / 40;
             double seter = 0;
             int count = 0;
-            foreach(Item item in list)
+            int pivotCount = 0;
+            foreach (Item item in list)
             {
                 Rectangle rect = new Rectangle();
                 rect.Width = RingWidth;
                 rect.Height = ringHeight * Math.Abs(item.Content);
-                if(item.Content == 0)
+                if (item.Content == 0)
                 {
                     rect.Height = ringHeight;
                 }
+
                 if (item.Content < 0)
                 {
                     Canvas.SetBottom(rect, -200 + item.Content * ringHeight);
                 }
-                else if(item.Content == 0)
+                else if (item.Content == 0)
                 {
                     Canvas.SetBottom(rect, -205);
                 }
@@ -204,21 +207,24 @@ namespace Lab_Alg_4.ViewModels
                 {
                     Canvas.SetBottom(rect, -200);
                 }
+
                 Canvas.SetLeft(rect, seter);
                 seter += RingWidth + 2;
-                if(settings != null && (item.Id == settings.positionFrom || item.Id == settings.positionTo))
+                if (settings != null && (item.Id == settings.positionFrom || item.Id == settings.positionTo))
                 {
                     count += 1;
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#5555FF");
                     rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#5555FF");
                 }
-                else 
+                else
                 {
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
                     rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
                 }
-                if ( settings!=null && (item.Id == settings.pivotIndex))
+
+                if (settings != null && (item.Id == settings.pivotIndex))
                 {
+                    pivotCount += 1;
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#008000");
                     rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#008000");
                 }
@@ -227,14 +233,14 @@ namespace Lab_Alg_4.ViewModels
                 rect.RadiusX = 10;
                 rect.RadiusY = 10;
                 MainCanvas.Children.Add(rect);
-                if (settings != null && settings.comment != null && count == 2)
+                if (settings != null && ((settings.comment != null && count == 2)||(settings.comment != null && pivotCount==1)||(settings.pivotIndex == item.Id))&& CurrentAlg == "Quick Sort")
                 {
                     Movements.Add(settings.comment);
                     count = 0;
+                    pivotCount = 0;
                 }
             }
         }
-
         private async void MoveRectangle(List<ItemSort> list)
         {
             
