@@ -185,6 +185,7 @@ namespace Lab_Alg_4.ViewModels
             double seter = 0;
             int count = 0;
             int pivotCount = 0;
+            int quickCount = 0;
             foreach (Item item in list)
             {
                 Rectangle rect = new Rectangle();
@@ -213,6 +214,7 @@ namespace Lab_Alg_4.ViewModels
                 if (settings != null && (item.Id == settings.positionFrom || item.Id == settings.positionTo))
                 {
                     count += 1;
+                    quickCount += 1;
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#5555FF");
                     rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#5555FF");
                 }
@@ -233,10 +235,10 @@ namespace Lab_Alg_4.ViewModels
                 rect.RadiusX = 10;
                 rect.RadiusY = 10;
                 MainCanvas.Children.Add(rect);
-                if (settings != null && ((settings.comment != null && count == 2)||(settings.comment != null && pivotCount==1)||(settings.pivotIndex == item.Id))&& CurrentAlg == "Quick Sort")
+                if (settings != null && ((settings.comment != null && quickCount == 4)||(settings.comment != null && pivotCount==1)||(settings.comment != null && settings.pivotIndex == item.Id))&& CurrentAlg == "Quick Sort")
                 {
                     Movements.Add(settings.comment);
-                    count = 0;
+                    quickCount = 0;
                     pivotCount = 0;
                 }
             }

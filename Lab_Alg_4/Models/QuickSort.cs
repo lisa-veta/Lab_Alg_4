@@ -16,7 +16,7 @@ namespace Lab_Alg_4.Models
                 return;
             }
             int pivot = Partition(items, startInd, endInd, comments);
-            comments = $"Определяется опорный элемент Pivot \"{items[pivot].Content}\"";
+            comments = $"\nОпределяется опорный элемент Pivot \"{items[pivot].Content}\" \n";
             listItems.Add(new ItemSort(pivot, Copyer.CopyListItem(items), comments));
             DoQuickSort(items, startInd, pivot - 1);
             DoQuickSort(items, pivot + 1, endInd);
@@ -34,7 +34,7 @@ namespace Lab_Alg_4.Models
 
                     listItems.Add(new ItemSort(items[i].Id, items[position].Id, Copyer.CopyListItem(items)));
                     Swap(items, i, position);
-                    comments = $"Элемент {i} < опорного => меняются местами c {position}";
+                    comments = $"Элемент {i} < опорного =>меняется c {position}";
                     listItems.Add(new ItemSort(items[i].Id, items[position].Id, Copyer.CopyListItem(items),comments));
                 }
             }
