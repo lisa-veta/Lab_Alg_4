@@ -27,17 +27,19 @@ namespace Lab_Alg_4.Models
 
         public void DoQuickSort(List<Item> items, int startInd, int endInd)
         {
+            string comments="";
             if (startInd >= endInd)
             {
                 return;
             }
-            int pivot = Partition(items, startInd, endInd);
-            listItems.Add(new ItemSort(pivot, Copyer.CopyListItem(items)));
+            int pivot = Partition(items, startInd, endInd, comments);
+            comments = $"\nОпределяется опорный элемент Pivot \"{items[pivot].Content}\" \n";
+            listItems.Add(new ItemSort(pivot, Copyer.CopyListItem(items), comments));
             DoQuickSort(items, startInd, pivot - 1);
             DoQuickSort(items, pivot + 1, endInd);
         }
 
-        public int Partition(List<Item> items, int startInd, int endInd)
+        public int Partition(List<Item> items, int startInd, int endInd,string comments)
         {
             Item pivot = items[endInd];
             int position = startInd - 1;
@@ -49,14 +51,16 @@ namespace Lab_Alg_4.Models
 
                     listItems.Add(new ItemSort(items[i].Id, items[position].Id, Copyer.CopyListItem(items)));
                     Swap(items, i, position);
-                    listItems.Add(new ItemSort(items[i].Id, items[position].Id, Copyer.CopyListItem(items)));
+                    comments = $"Элемент {i} < опорного =>меняется c {position}";
+                    listItems.Add(new ItemSort(items[i].Id, items[position].Id, Copyer.CopyListItem(items),comments));
                 }
             }
             position++;
             listItems.Add(new ItemSort(items[endInd].Id, items[position].Id, Copyer.CopyListItem(items)));
             items[endInd] = items[position];
             items[position] = pivot;
-            listItems.Add(new ItemSort(items[endInd].Id, items[position].Id, Copyer.CopyListItem(items)));
+            comments = $"Pivot {items[endInd].Content} на правильную позицию {items[position].Content}";
+            listItems.Add(new ItemSort(items[endInd].Id, items[position].Id, Copyer.CopyListItem(items),comments));
 
             return position;
         }

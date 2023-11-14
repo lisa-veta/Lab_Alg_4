@@ -176,7 +176,7 @@ namespace Lab_Alg_4.ViewModels
                     QuickSort quickSort = new QuickSort();
                     quickSort.DoQuickSort(IndElements,0,IndElements.Count-1);
                     SortElements = quickSort.listItems;
-                    MoveRectangle(quickSort.listItems);
+                    MoveRectangle(SortElements);
                     break;
                 default:
                     break;
@@ -190,7 +190,9 @@ namespace Lab_Alg_4.ViewModels
             double ringHeight = 425 / 40;
             double seter = 0;
             int count = 0;
-            foreach(Item item in list)
+            int pivotCount = 0;
+            int quickCount = 0;
+            foreach (Item item in list)
             {
                 TextBlock textBlock = new TextBlock();
                 textBlock.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFF");
@@ -199,10 +201,11 @@ namespace Lab_Alg_4.ViewModels
                 Rectangle rect = new Rectangle();
                 rect.Width = RingWidth;
                 rect.Height = ringHeight * Math.Abs(item.Content);
-                if(item.Content == 0)
+                if (item.Content == 0)
                 {
                     rect.Height = ringHeight;
                 }
+
                 if (item.Content < 0)
                 {
                     Canvas.SetLeft(textBlock, seter);
@@ -210,7 +213,7 @@ namespace Lab_Alg_4.ViewModels
                     MainCanvas.Children.Add(textBlock);
                     Canvas.SetBottom(rect, -200 + item.Content * ringHeight);
                 }
-                else if(item.Content == 0)
+                else if (item.Content == 0)
                 {
                     Canvas.SetLeft(textBlock, seter);
                     Canvas.SetBottom(textBlock, -195);
@@ -224,21 +227,24 @@ namespace Lab_Alg_4.ViewModels
                     MainCanvas.Children.Add(textBlock);
                     Canvas.SetBottom(rect, -200);
                 }
+
                 Canvas.SetLeft(rect, seter);
                 seter += RingWidth + 2;
-                if(settings != null && (item.Id == settings.positionFrom || item.Id == settings.positionTo))
+                if (settings != null && (item.Id == settings.positionFrom || item.Id == settings.positionTo))
                 {
                     count += 1;
+                    quickCount += 1;
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#5555FF");
                     rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#5555FF");
                 }
-                else 
+                else
                 {
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
                     rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
                 }
                 if (settings != null && (item.Id == settings.pivotIndex) && CurrentAlg == "Quick Sort")
                 {
+                    pivotCount += 1;
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#008000");
                     rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#008000");
                 }
@@ -247,15 +253,28 @@ namespace Lab_Alg_4.ViewModels
                 rect.RadiusX = 10;
                 rect.RadiusY = 10;
                 MainCanvas.Children.Add(rect);
-                if (settings != null && settings.comment != null && count == 2)
+                if (settings != null && ((settings.comment != null && quickCount == 4)||(settings.comment != null && pivotCount==1)||(settings.comment != null && settings.pivotIndex == item.Id))&& CurrentAlg == "Quick Sort")
                 {
                     Movements.Add(settings.comment);
-                    count = 0;
+                    quickCount = 0;
+                    pivotCount = 0;
                 }
+            //    if (settings != null && settings.comment != null && count == 2 && (CurrentAlg == "Shell Sort" || CurrentAlg == "Bubble Sort" ))
+            //    {
+            //        Movements.Add(settings.comment);
+            //        count = 0;
+            //    }
+            //    if(settings != null && settings.comment != null && CurrentAlg == "Heap Sort")
+            //    {
+            //        Movements.Add(settings.comment);
+            //    }
+            }
+            if (settings != null && (CurrentAlg == "Shell Sort" || CurrentAlg == "Bubble Sort" || CurrentAlg == "Heap Sort"))
+            {
+                Movements.Add(settings.comment);
             }
             IsEnabledComb = flag;
         }
-
         private async void MoveRectangle(List<ItemSort> list)
         {
             for (int i = 0; i < list.Count; i++)
