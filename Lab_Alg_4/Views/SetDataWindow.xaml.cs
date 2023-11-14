@@ -23,5 +23,13 @@ namespace Lab_Alg_4.Views
         {
             InitializeComponent();
         }
+
+        public ViewModels.SetDataViewModel SetDataViewModel
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

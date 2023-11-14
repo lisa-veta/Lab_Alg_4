@@ -9,6 +9,23 @@ namespace Lab_Alg_4.Models
     public class HeapSort
     {
         public List<ItemSort> ItemsSort = new List<ItemSort>();
+
+        public ViewModels.SortingAlgViewModel SortingAlgViewModel
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public ItemSort ItemSort
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         public void DoHeapSort(List<Item> items)
         {
             int n = items.Count;
