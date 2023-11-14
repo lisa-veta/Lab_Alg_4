@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab_Alg_4.Views" xmlns:viewmodel="clr-namespace:Lab_Alg_4.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
+        Title="MainWindow" Height="380" Width="230">
+    <Grid Background="Black">
+        
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="20*"/>
             <RowDefinition Height="5*"/>
@@ -27,6 +28,67 @@
             </Button.Resources>
             <Button.Content>
                 <TextBlock FontSize="34" Text="Sortings" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button.Content>
+        </Button>-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Foreground="White" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Text="Введите элементы массива" Grid.ColumnSpan="3"></TextBlock>
+        <ScrollViewer Grid.Row="3"  Grid.Column="1" Grid.ColumnSpan="3"  Grid.RowSpan="1">
+            <ItemsControl ItemsSource="{Binding Items}" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock>Новый элемент:</TextBlock>
+                            <TextBox TextAlignment="Center" Text="{Binding NewElement}" Grid.ColumnSpan="2"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <Button x:Name="DragonFractal" Command="{Binding  CreateElem}" Grid.Column="1" Grid.Row="5" Background="Ivory">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="14"/>
+                </Style>
+            </Button.Resources>
+            <Button.Content>
+                <TextBlock FontSize="15" Text="Добавить элемент" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button.Content>
+        </Button>
+        <Button  Command="{Binding  RemoveElem}" Grid.Column="3" Grid.Row="5" Background="Ivory">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="14"/>
+                </Style>
+            </Button.Resources>
+            <Button.Content>
+                <TextBlock FontSize="15" Text="Удалить элемент" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button.Content>
+        </Button>
+        <Button  Command="{Binding  CreateMas}" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" Background="Ivory">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="14"/>
+                </Style>
+            </Button.Resources>
+            <Button.Content>
+                <TextBlock FontSize="15" Text="Задать массив" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
     </Grid>
