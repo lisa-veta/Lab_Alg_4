@@ -9,6 +9,23 @@ namespace Lab_Alg_4.Models
     public class HeapSort
     {
         public List<ItemSort> ItemsSort = new List<ItemSort>();
+
+        public ViewModels.SortingAlgViewModel SortingAlgViewModel
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public ItemSort ItemSort
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         public void DoHeapSort(List<Item> items)
         {
             int n = items.Count;
@@ -42,7 +59,15 @@ namespace Lab_Alg_4.Models
             Item box = items[a];
             items[a] = items[b];
             items[b] = box;
-            ItemsSort.Add(new ItemSort(items[a].Id, items[b].Id, Copyer.CopyListItem(items)));
+            if(ItemsSort.Count == 0)
+                ItemsSort.Add(new ItemSort(items[a].Id, items[b].Id, Copyer.CopyListItem(items), $"Представляем массив в виде бинарного дерева," +
+                    $"\nу которого младшие узлы меньше родительского.\n" +
+                    $"Для сортировки нужно поддерживать это свойство\n " +
+                    $"дерева. Когда это происходит, то корень дерева \n" +
+                    $"фиксируется в конце массива, а на его место\n встает самый левый лист. " +
+                    $"И идет снова колибровка дерева по его свойству.\n Так производится сортировка.\n {items[b].Content} <-> {items[a].Content}"));
+            else 
+                ItemsSort.Add(new ItemSort(items[a].Id, items[b].Id, Copyer.CopyListItem(items), $"{items[b].Content} <-> {items[a].Content}"));
         }
     }
 }

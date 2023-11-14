@@ -8,6 +8,23 @@ namespace Lab_Alg_4.Models
     public class QuickSort
     {
         public List<ItemSort> listItems = new List<ItemSort>();
+
+        public ViewModels.SortingAlgViewModel SortingAlgViewModel
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public ItemSort ItemSort
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         public void DoQuickSort(List<Item> items, int startInd, int endInd)
         {
             string comments="";

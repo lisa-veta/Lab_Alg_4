@@ -8,16 +8,32 @@ namespace Lab_Alg_4.Models
 {
     public class ShellSort
     {
-
         public List<ItemSort> ItemsSort = new List<ItemSort>();
+
+        public ViewModels.SortingAlgViewModel SortingAlgViewModel
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public ItemSort ItemSort
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         public void DoShellSort(List<Item> items)
         {
             Item temp;
             int d = items.Count / 2;
-            string comments = $"Находим диапазон сравнения:\n" +
+            string comments = $"\nНаходим диапазон сравнения:\n" +
                 $"длина массива / 2 = {items.Count} / 2 = {d}\n" +
                 $"Будем сравнивать элементы,\n" +
-                $"находящиеся на расстоянии {d}";
+                $"находящиеся на расстоянии {d}\n";
             bool flag = true;
             while (d >= 1)
             {
@@ -44,13 +60,11 @@ namespace Lab_Alg_4.Models
                         j = j - d;
                     }
                 }
-                comments = $"Сортировка с диапазоном {d} закончена\n" +
-                    $"Новый диапазон: {d} / 2 = {d/2}";
+                comments = $"\nСортировка с диапазоном {d} закончена\n" +
+                    $"Новый диапазон: {d} / 2 = {d/2}\n";
                 flag = true;
                 d = d / 2;
             }
         }
-
-
     }
 }

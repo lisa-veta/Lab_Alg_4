@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
+using System.Xml;
 
 namespace Lab_Alg_4.ViewModels
 {
@@ -131,17 +133,21 @@ namespace Lab_Alg_4.ViewModels
         public ICommand Start => new CommandDelegate(param =>
         {
             SortElements.Clear();
+            Movements.Clear();
             SetDictElement(OriginalListElements);
-            FieldDefinition(IndElements);
+            FieldDefinition(IndElements, null, true);
             _isEnabledComb = false;
             StartDraw();
+            _isEnabledComb = true;
         });
 
         public ICommand Finish => new CommandDelegate(param =>
         {
-            _isEnabledComb = true;
+            Movements.Clear();
+            GetMovements(SortElements);
             SortElements.Clear();
-            FieldDefinition(IndElements);
+            FieldDefinition(IndElements, null, true);
+            _isEnabledComb = true;
         });
 
         private void StartDraw()
@@ -177,7 +183,7 @@ namespace Lab_Alg_4.ViewModels
             }
         }
 
-        public void FieldDefinition(List<Item> list, ItemSort settings = null)
+        public void FieldDefinition(List<Item> list, ItemSort settings = null, bool flag = false)
         {
             MainCanvas.Children.Clear();
             double RingWidth = 600/40 - 2;
@@ -188,6 +194,10 @@ namespace Lab_Alg_4.ViewModels
             int quickCount = 0;
             foreach (Item item in list)
             {
+                TextBlock textBlock = new TextBlock();
+                textBlock.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFF");
+                textBlock.Text = item.Content.ToString();
+                textBlock.FontSize = 10;
                 Rectangle rect = new Rectangle();
                 rect.Width = RingWidth;
                 rect.Height = ringHeight * Math.Abs(item.Content);
@@ -198,14 +208,23 @@ namespace Lab_Alg_4.ViewModels
 
                 if (item.Content < 0)
                 {
+                    Canvas.SetLeft(textBlock, seter);
+                    Canvas.SetBottom(textBlock, -200 + item.Content* ringHeight - 10);
+                    MainCanvas.Children.Add(textBlock);
                     Canvas.SetBottom(rect, -200 + item.Content * ringHeight);
                 }
                 else if (item.Content == 0)
                 {
+                    Canvas.SetLeft(textBlock, seter);
+                    Canvas.SetBottom(textBlock, -195);
+                    MainCanvas.Children.Add(textBlock);
                     Canvas.SetBottom(rect, -205);
                 }
                 else
                 {
+                    Canvas.SetLeft(textBlock, seter);
+                    Canvas.SetBottom(textBlock, -200 + item.Content * ringHeight);
+                    MainCanvas.Children.Add(textBlock);
                     Canvas.SetBottom(rect, -200);
                 }
 
@@ -223,8 +242,7 @@ namespace Lab_Alg_4.ViewModels
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
                     rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
                 }
-
-                if (settings != null && (item.Id == settings.pivotIndex))
+                if (settings != null && (item.Id == settings.pivotIndex) && CurrentAlg == "Quick Sort")
                 {
                     pivotCount += 1;
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#008000");
@@ -242,19 +260,94 @@ namespace Lab_Alg_4.ViewModels
                     pivotCount = 0;
                 }
             }
+            IsEnabledComb = flag;
         }
         private async void MoveRectangle(List<ItemSort> list)
         {
-            
             for (int i = 0; i < list.Count; i++)
             {
                 IsEnabledComb = false;
                 FieldDefinition(list[i].elements, list[i]);
                 await Task.Delay(1010 - Slider);
             }
-            FieldDefinition(IndElements);
             IsEnabledComb = true;
+            FieldDefinition(IndElements, null, true);
         }
 
+        private void GetMovements(List<ItemSort> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                int count = 0;
+                foreach (Item item in list[i].elements)
+                {
+                    if (list[i] != null && (item.Id == list[i].positionFrom || item.Id == list[i].positionTo))
+                    {
+                        count += 1;
+                    }
+                    if (list[i] != null && list[i].comment != null && count == 2)
+                    {
+                        Movements.Add(list[i].comment);
+                        count = 0;
+                    }
+                }
+            }
+        }
+
+        public Views.SortingAlgWindow SortingAlgWindow
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public CommandDelegate CommandDelegate
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public HeapSort HeapSort
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public QuickSort QuickSort
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public ShellSort ShellSort
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public BubbleSort BubbleSort
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public BubbleSort BubbleSort1
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

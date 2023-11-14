@@ -1,0 +1,81 @@
+﻿<Window x:Class="Lab_Alg_4.Views.SortingTableWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab_Alg_4.Views"
+        mc:Ignorable="d"
+        Title="SortingTableWindow" Height="450" Width="800">
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="100*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" Grid.Row ="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="100*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="8*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="20*" />
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+
+                <ComboBox Name="Algorithms" IsEnabled="{Binding IsEnabledComb}" ItemsSource="{Binding ListOfAlgorithms}" SelectedItem="{Binding CurrentAlg}"></ComboBox>
+                <TextBlock Name="Items" Text="{Binding SequenceNum}" Grid.Column="2"></TextBlock>
+                <Button x:Name="Start" IsEnabled="{Binding IsEnabledComb}" Command="{Binding  Start}" Grid.Column="4" Background="Ivory">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.Content>
+                        <TextBlock FontSize="20" Text="Start" TextWrapping="Wrap" TextAlignment="Center"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="Finish" Command="{Binding  Finish}" Grid.Column="5" Background="Ivory">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.Content>
+                        <TextBlock FontSize="20" Text="Finish" TextWrapping="Wrap" TextAlignment="Center"/>
+                    </Button.Content>
+                </Button>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*" />
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="9.5*" />
+                </Grid.ColumnDefinitions>
+                <DataGrid Grid.Column="0" ItemsSource="{Binding SelectedTable}" IsReadOnly="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+                </DataGrid>
+                <ScrollViewer Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="3" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Foreground="#FFFEF7" ItemsSource="{Binding Movements}">
+
+                    </ItemsControl>
+                </ScrollViewer>
+
+            </Grid>
+            <Grid Grid.Row ="4">
+                <Slider x:Name="Slider" Grid.Row="10" Grid.Column="4" Minimum="10" Maximum="1000" Value="{Binding Slider}" SmallChange="10" LargeChange="10"></Slider>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

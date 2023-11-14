@@ -15,21 +15,13 @@ using System.Windows.Shapes;
 namespace Lab_Alg_4.Views
 {
     /// <summary>
-    /// Логика взаимодействия для SetDataWindow.xaml
+    /// Логика взаимодействия для SortingTableWindow.xaml
     /// </summary>
-    public partial class SetDataWindow : Window
+    public partial class SortingTableWindow : Window
     {
-        public SetDataWindow()
+        public SortingTableWindow()
         {
             InitializeComponent();
-        }
-
-        public ViewModels.SetDataViewModel SetDataViewModel
-        {
-            get => default;
-            set
-            {
-            }
         }
     }
 }
