@@ -259,6 +259,19 @@ namespace Lab_Alg_4.ViewModels
                     quickCount = 0;
                     pivotCount = 0;
                 }
+            //    if (settings != null && settings.comment != null && count == 2 && (CurrentAlg == "Shell Sort" || CurrentAlg == "Bubble Sort" ))
+            //    {
+            //        Movements.Add(settings.comment);
+            //        count = 0;
+            //    }
+            //    if(settings != null && settings.comment != null && CurrentAlg == "Heap Sort")
+            //    {
+            //        Movements.Add(settings.comment);
+            //    }
+            }
+            if (settings != null && (CurrentAlg == "Shell Sort" || CurrentAlg == "Bubble Sort" || CurrentAlg == "Heap Sort"))
+            {
+                Movements.Add(settings.comment);
             }
             IsEnabledComb = flag;
         }
