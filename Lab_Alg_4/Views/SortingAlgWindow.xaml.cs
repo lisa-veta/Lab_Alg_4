@@ -24,6 +24,14 @@ namespace Lab_Alg_4.Views
             InitializeComponent();
         }
 
+        public ViewModels.SortingAlgViewModel SortingAlgViewModel
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void ItemsControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
 

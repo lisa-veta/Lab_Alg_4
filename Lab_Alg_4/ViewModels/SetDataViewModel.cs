@@ -80,5 +80,21 @@ namespace Lab_Alg_4.ViewModels
             }
             return result;
         }
+
+        public SetDataWindow SetDataWindow
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public CommandDelegate CommandDelegate
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }
