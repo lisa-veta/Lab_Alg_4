@@ -242,7 +242,7 @@ namespace Lab_Alg_4.ViewModels
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
                     rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
                 }
-                if (settings != null && (item.Id == settings.pivotIndex) && CurrentAlg == "Quick Sort")
+                if (settings != null && item.Id == settings.pivotIndex && CurrentAlg == "Quick Sort")
                 {
                     pivotCount += 1;
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#008000");
@@ -253,22 +253,26 @@ namespace Lab_Alg_4.ViewModels
                 rect.RadiusX = 10;
                 rect.RadiusY = 10;
                 MainCanvas.Children.Add(rect);
-                if (settings != null && ((settings.comment != null && quickCount == 4)||(settings.comment != null && pivotCount==1)||(settings.comment != null && settings.pivotIndex == item.Id))&& CurrentAlg == "Quick Sort")
+                if (settings != null && ((settings.comment != null && quickCount == 4) || (settings.comment != null && pivotCount == 1) || (settings.comment != null && settings.pivotIndex == item.Id)) && CurrentAlg == "Quick Sort")
                 {
                     Movements.Add(settings.comment);
                     quickCount = 0;
                     pivotCount = 0;
                 }
-            //    if (settings != null && settings.comment != null && count == 2 && (CurrentAlg == "Shell Sort" || CurrentAlg == "Bubble Sort" ))
-            //    {
-            //        Movements.Add(settings.comment);
-            //        count = 0;
-            //    }
-            //    if(settings != null && settings.comment != null && CurrentAlg == "Heap Sort")
-            //    {
-            //        Movements.Add(settings.comment);
-            //    }
+                //    if (settings != null && settings.comment != null && count == 2 && (CurrentAlg == "Shell Sort" || CurrentAlg == "Bubble Sort" ))
+                //    {
+                //        Movements.Add(settings.comment);
+                //        count = 0;
+                //    }
+                //    if(settings != null && settings.comment != null && CurrentAlg == "Heap Sort")
+                //    {
+                //        Movements.Add(settings.comment);
+                //    }
             }
+            //if (settings != null && settings.comment != null &&  CurrentAlg == "Quick Sort")
+            //{
+            //    Movements.Add(settings.comment);
+            //}
             if (settings != null && (CurrentAlg == "Shell Sort" || CurrentAlg == "Bubble Sort" || CurrentAlg == "Heap Sort"))
             {
                 Movements.Add(settings.comment);

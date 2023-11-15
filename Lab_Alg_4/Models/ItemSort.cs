@@ -14,7 +14,6 @@ namespace Lab_Alg_4.Models
         public int positionTo;
         public List<Item> elements;
         public string comment;
-
         public int pivotIndex;
         public ItemSort(List<Item> elements)
         {
@@ -22,6 +21,15 @@ namespace Lab_Alg_4.Models
         }
         public ItemSort(int positionFrom, int positionTo, List<Item> elements, string comment = null)
         {
+            this.positionFrom = positionFrom;
+            this.positionTo = positionTo;
+            this.elements = elements;
+            this.comment = comment;
+        }
+
+        public ItemSort(int pivotInd, int positionFrom, int positionTo, List<Item> elements, string comment = null)
+        {
+            this.pivotIndex = pivotInd;
             this.positionFrom = positionFrom;
             this.positionTo = positionTo;
             this.elements = elements;

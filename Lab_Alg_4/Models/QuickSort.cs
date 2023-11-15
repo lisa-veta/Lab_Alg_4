@@ -32,9 +32,11 @@ namespace Lab_Alg_4.Models
             {
                 return;
             }
+            comments = $"\nОпределяется опорный элемент Pivot \"{items[endInd].Content}\" \n";
+            listItems.Add(new ItemSort(items[endInd].Id, Copyer.CopyListItem(items), comments));
             int pivot = Partition(items, startInd, endInd, comments);
-            comments = $"\nОпределяется опорный элемент Pivot \"{items[pivot].Content}\" \n";
-            listItems.Add(new ItemSort(pivot, Copyer.CopyListItem(items), comments));
+            //comments = $"\nОпределяется опорный элемент Pivot \"{items[pivot].Content}\" \n";
+            //listItems.Add(new ItemSort(pivot, Copyer.CopyListItem(items), comments));
             DoQuickSort(items, startInd, pivot - 1);
             DoQuickSort(items, pivot + 1, endInd);
         }
@@ -42,25 +44,26 @@ namespace Lab_Alg_4.Models
         public int Partition(List<Item> items, int startInd, int endInd,string comments)
         {
             Item pivot = items[endInd];
+            int pivott = items[endInd].Content;
             int position = startInd - 1;
             for (int i = startInd; i <= endInd; i++)
             {
                 if (items[i].Content < pivot.Content)
                 {
                     position++;
-
-                    listItems.Add(new ItemSort(items[i].Id, items[position].Id, Copyer.CopyListItem(items)));
+                    comments = $"Элемент {i}({items[i].Content}) < опорного({pivot.Content}) => меняется c {items[position].Content}";
+                    listItems.Add(new ItemSort(items[endInd].Id, items[i].Id, items[position].Id, Copyer.CopyListItem(items)));
                     Swap(items, i, position);
-                    comments = $"Элемент {i} < опорного =>меняется c {position}";
-                    listItems.Add(new ItemSort(items[i].Id, items[position].Id, Copyer.CopyListItem(items),comments));
+                    //comments = $"Элемент {i}({items[i].Content}) < опорного() => меняется c позицией {position}";
+                    listItems.Add(new ItemSort(items[endInd].Id, items[i].Id, items[position].Id, Copyer.CopyListItem(items),comments));
                 }
             }
             position++;
-            listItems.Add(new ItemSort(items[endInd].Id, items[position].Id, Copyer.CopyListItem(items)));
+            listItems.Add(new ItemSort(items[position].Id, items[endInd].Id, items[position].Id, Copyer.CopyListItem(items)));
             items[endInd] = items[position];
             items[position] = pivot;
-            comments = $"Pivot {items[endInd].Content} на правильную позицию {items[position].Content}";
-            listItems.Add(new ItemSort(items[endInd].Id, items[position].Id, Copyer.CopyListItem(items),comments));
+            comments = $"Pivot {pivott} на правильную позицию {position}";
+            listItems.Add(new ItemSort(items[position].Id, items[endInd].Id, items[position].Id, Copyer.CopyListItem(items), comments));
 
             return position;
         }
