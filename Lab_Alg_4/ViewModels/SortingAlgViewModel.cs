@@ -230,6 +230,8 @@ namespace Lab_Alg_4.ViewModels
 
                 Canvas.SetLeft(rect, seter);
                 seter += RingWidth + 2;
+                rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
+                rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
                 if (settings != null && (item.Id == settings.positionFrom || item.Id == settings.positionTo))
                 {
                     count += 1;
@@ -237,10 +239,10 @@ namespace Lab_Alg_4.ViewModels
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#5555FF");
                     rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#5555FF");
                 }
-                else
+                else if (CurrentAlg == "Quick Sort" && settings != null && Check(settings.elementsHighlight, item))
                 {
-                    rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
-                    rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
+                    rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFA500");
+                    rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFA500");
                 }
                 if (settings != null && item.Id == settings.pivotIndex && CurrentAlg == "Quick Sort")
                 {
@@ -248,6 +250,7 @@ namespace Lab_Alg_4.ViewModels
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#008000");
                     rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#008000");
                 }
+                
 
                 rect.StrokeThickness = 1;
                 rect.RadiusX = 10;
@@ -278,6 +281,15 @@ namespace Lab_Alg_4.ViewModels
                 Movements.Add(settings.comment);
             }
             IsEnabledComb = flag;
+        }
+
+        private bool Check(List<Item> items, Item item)
+        {
+            for(int i = 0; i < items.Count; i++)
+            {
+                if (items[i].Id == item.Id) { return true; }
+            }
+            return false;
         }
         private async void MoveRectangle(List<ItemSort> list)
         {
