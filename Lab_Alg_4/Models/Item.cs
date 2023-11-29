@@ -11,14 +11,6 @@ namespace Lab_Alg_4.Models
         public int Id { get; }
         public int Content { get; }
 
-        public ItemSort ItemSort
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
         public Item(int ind, int content)
         {
             Id = ind;

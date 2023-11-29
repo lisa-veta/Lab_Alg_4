@@ -14,8 +14,8 @@ namespace Lab_Alg_4.Models
         public int positionTo;
         public List<Item> elements;
         public string comment;
-
         public int pivotIndex;
+        public List<Item> elementsHighlight;
         public ItemSort(List<Item> elements)
         {
             this.elements = elements;
@@ -28,10 +28,22 @@ namespace Lab_Alg_4.Models
             this.comment = comment;
         }
 
-        public ItemSort(int pivot, List<Item> elements)
+        public ItemSort(int pivotInd, int positionFrom, int positionTo, List<Item> elements, List<Item> elementsHighlight = null, string comment = null)
+        {
+            this.pivotIndex = pivotInd;
+            this.positionFrom = positionFrom;
+            this.positionTo = positionTo;
+            this.elements = elements;
+            this.comment = comment;
+            this.elementsHighlight = elementsHighlight;
+        }
+
+        public ItemSort(int pivot, List<Item> elements, List<Item> elementsHighlight = null,  string comment = null)
         {
             this.pivotIndex = pivot;
             this.elements = elements;
+            this.comment = comment;
+            this.elementsHighlight = elementsHighlight;
         }
     }
 }
