@@ -47,11 +47,11 @@ namespace Lab_Alg_4.Models
                 }
             }
             position++;
-            listItems.Add(new ItemSort(items[position].Id, items[endInd].Id, items[position].Id, Copyer.CopyListItem(items), itemsTemp));
+            listItems.Add(new ItemSort(items[position].Id, items[position].Id, items[endInd].Id, Copyer.CopyListItem(items), itemsTemp));
             items[endInd] = items[position];
             items[position] = pivot;
             comments = $"Pivot {pivott} на правильную позицию {position}";
-            listItems.Add(new ItemSort(items[position].Id,  items[endInd].Id, items[position].Id, Copyer.CopyListItem(items), itemsTemp, comments));
+            listItems.Add(new ItemSort(items[position].Id,  items[position].Id, items[endInd].Id, Copyer.CopyListItem(items), itemsTemp, comments));
 
             return position;
         }

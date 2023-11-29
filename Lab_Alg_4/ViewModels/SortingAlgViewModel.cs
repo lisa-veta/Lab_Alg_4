@@ -244,11 +244,16 @@ namespace Lab_Alg_4.ViewModels
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFA500");
                     rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFA500");
                 }
-                if (settings != null && item.Id == settings.pivotIndex && CurrentAlg == "Quick Sort")
+                else if (settings != null && item.Id == settings.pivotIndex && CurrentAlg == "Quick Sort")
                 {
                     pivotCount += 1;
                     rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#008000");
                     rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#008000");
+                }
+                else
+                {
+                    rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
+                    rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3EFF");
                 }
                 
 
